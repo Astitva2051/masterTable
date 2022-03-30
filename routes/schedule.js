@@ -77,11 +77,11 @@ scheduleRouter.put("/update", (req, res, next) => {
       { new: true }
     )
     .then(
-      (session) => {
-        console.log(session);
+      (updatedsession) => {
+        console.log(updatedsession);
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
-        res.json(session);
+        res.json(updatedsession);
       },
       (err) => next(err)
     )

@@ -9,7 +9,21 @@ const courseRouter = express.Router();
 
 // This handles the API call to get all the courses available in the database.
 courseRouter.get("/", (req, res, next) => {
+  if(req.query.course != null){
   course
+    .find({name: req.query.course})
+    .then(
+      (courses) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(courses);
+      },
+      (err) => next(err)
+    )
+    .catch((err) => next(err));
+    }
+  else{
+    course
     .find({})
     .then(
       (courses) => {
@@ -20,6 +34,7 @@ courseRouter.get("/", (req, res, next) => {
       (err) => next(err)
     )
     .catch((err) => next(err));
+  }
 });
 
 // This handles the API call to add a new course to the database.
